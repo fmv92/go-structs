@@ -5,7 +5,7 @@ import "fmt"
 type person struct {
 	firstName string
 	lastName  string
-	contact contactInfo
+	contactInfo
 }
 
 type contactInfo struct {
@@ -19,18 +19,28 @@ func main() {
 	faye := person{
 		firstName: "Faye",
 		lastName:  "Valentine",
-		contact: contactInfo{
+		contactInfo: contactInfo{
 			email: "faye@gmail.com",
 			zip: 31000, 
 		},
 	}
+	
 	var spike person
 	spike.firstName = "Spike"
 	spike.lastName = "Spiegel"
-	spike.contact.email = "bebop@gmail.com"
-	spike.contact.zip = 31150
+	spike.updateName("Jet")
+	spike.contactInfo.email = "bebop@gmail.com"
+	spike.contactInfo.zip = 31150
 
-	fmt.Printf("%+v \n", spike)
-	fmt.Printf("%+v", faye)
+	spike.print()
+	faye.print()
 
+}
+
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+func (p person) print() {
+	fmt.Printf("%+v \n", p)
 }
